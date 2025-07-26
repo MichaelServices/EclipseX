@@ -1,4 +1,4 @@
--- EclipseX UI Library by MichaelServices
+-- EclipseX UI Library by MichaelServices - Fixed Version
 
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
@@ -98,12 +98,15 @@ function EclipseX:CreateWindow(options)
 
     local function SwitchTab(tabName)
         for name, tab in pairs(tabs) do
-            tab.Content.Visible = (name == tabName)
+            if tab.Content then
+                tab.Content.Visible = (name == tabName)
+            end
             if tab.Button then
                 tab.Button.BackgroundColor3 = (name == tabName) and Color3.fromRGB(0, 170, 255) or Color3.fromRGB(60, 60, 60)
             end
         end
         currentTab = tabName
+        print("Switched to tab:", tabName) -- Debug print
     end
 
     return {
@@ -126,17 +129,30 @@ function EclipseX:CreateWindow(options)
             local TabContent = Instance.new("ScrollingFrame")
             TabContent.Parent = ContentContainer
             TabContent.Size = UDim2.new(1, 0, 1, 0)
+            TabContent.Position = UDim2.new(0, 0, 0, 0)
             TabContent.Name = tabName
             TabContent.BackgroundTransparency = 1
             TabContent.ScrollBarThickness = 8
             TabContent.ScrollBarImageColor3 = Color3.fromRGB(80, 80, 80)
             TabContent.CanvasSize = UDim2.new(0, 0, 0, 0)
             TabContent.Visible = false
+            TabContent.BorderSizePixel = 0
+            TabContent.TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+            TabContent.BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
 
             local Layout = Instance.new("UIListLayout")
             Layout.Parent = TabContent
             Layout.Padding = UDim.new(0, 10)
             Layout.SortOrder = Enum.SortOrder.LayoutOrder
+            Layout.FillDirection = Enum.FillDirection.Vertical
+
+            -- Add padding to the content
+            local UIPadding = Instance.new("UIPadding")
+            UIPadding.Parent = TabContent
+            UIPadding.PaddingLeft = UDim.new(0, 10)
+            UIPadding.PaddingRight = UDim.new(0, 10)
+            UIPadding.PaddingTop = UDim.new(0, 10)
+            UIPadding.PaddingBottom = UDim.new(0, 10)
 
             -- Auto-resize canvas
             Layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
@@ -151,7 +167,11 @@ function EclipseX:CreateWindow(options)
 
             -- Set as current tab if it's the first one
             if not currentTab then
-                SwitchTab(tabName)
+                currentTab = tabName
+                TabContent.Visible = true
+                TabButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+            else
+                TabContent.Visible = false
             end
 
             -- Tab button click handler
