@@ -1,4 +1,4 @@
--- EclipseX UI Library by MichaelServices - Fixed Version
+-- EclipseX UI Library by MichaelServices
 
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
@@ -163,12 +163,15 @@ function EclipseX:CreateWindow(options)
                 AddButton = function(text, callback)
                     local Button = Instance.new("TextButton")
                     Button.Parent = TabContent
-                    Button.Text = text
-                    Button.Size = UDim2.new(1, -20, 0, 35)
+                    Button.Text = text or "Button"
+                    Button.Size = UDim2.new(1, 0, 0, 35)
+                    Button.Position = UDim2.new(0, 0, 0, 0)
                     Button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
                     Button.TextColor3 = Color3.fromRGB(255, 255, 255)
                     Button.Font = Enum.Font.Gotham
                     Button.TextSize = 14
+                    Button.BorderSizePixel = 0
+                    Button.AutoButtonColor = false
 
                     local corner = Instance.new("UICorner")
                     corner.Parent = Button
@@ -195,12 +198,15 @@ function EclipseX:CreateWindow(options)
                     
                     local Toggle = Instance.new("TextButton")
                     Toggle.Parent = TabContent
-                    Toggle.Size = UDim2.new(1, -20, 0, 35)
+                    Toggle.Size = UDim2.new(1, 0, 0, 35)
+                    Toggle.Position = UDim2.new(0, 0, 0, 0)
                     Toggle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
                     Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
                     Toggle.Font = Enum.Font.Gotham
                     Toggle.TextSize = 14
                     Toggle.Text = text .. ": " .. (default and "ON" or "OFF")
+                    Toggle.BorderSizePixel = 0
+                    Toggle.AutoButtonColor = false
                     
                     local state = default
                     
@@ -238,7 +244,8 @@ function EclipseX:CreateWindow(options)
                     
                     local Container = Instance.new("Frame")
                     Container.Parent = TabContent
-                    Container.Size = UDim2.new(1, -20, 0, 60)
+                    Container.Size = UDim2.new(1, 0, 0, 60)
+                    Container.Position = UDim2.new(0, 0, 0, 0)
                     Container.BackgroundTransparency = 1
 
                     local Label = Instance.new("TextLabel")
@@ -257,16 +264,19 @@ function EclipseX:CreateWindow(options)
                     SliderBack.Size = UDim2.new(1, 0, 0, 20)
                     SliderBack.Position = UDim2.new(0, 0, 0, 30)
                     SliderBack.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+                    SliderBack.BorderSizePixel = 0
 
                     local SliderFill = Instance.new("Frame")
                     SliderFill.Parent = SliderBack
                     SliderFill.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
                     SliderFill.Size = UDim2.new((default - min)/(max - min), 0, 1, 0)
+                    SliderFill.Position = UDim2.new(0, 0, 0, 0)
                     SliderFill.BorderSizePixel = 0
 
                     local SliderButton = Instance.new("TextButton")
                     SliderButton.Parent = SliderBack
                     SliderButton.Size = UDim2.new(1, 0, 1, 0)
+                    SliderButton.Position = UDim2.new(0, 0, 0, 0)
                     SliderButton.BackgroundTransparency = 1
                     SliderButton.Text = ""
 
@@ -314,7 +324,8 @@ function EclipseX:CreateWindow(options)
                 AddInput = function(placeholder, callback)
                     local Box = Instance.new("TextBox")
                     Box.Parent = TabContent
-                    Box.Size = UDim2.new(1, -20, 0, 35)
+                    Box.Size = UDim2.new(1, 0, 0, 35)
+                    Box.Position = UDim2.new(0, 0, 0, 0)
                     Box.PlaceholderText = placeholder or "Enter text..."
                     Box.Font = Enum.Font.Gotham
                     Box.TextSize = 14
@@ -323,6 +334,7 @@ function EclipseX:CreateWindow(options)
                     Box.Text = ""
                     Box.ClearTextOnFocus = false
                     Box.TextWrapped = true
+                    Box.BorderSizePixel = 0
 
                     local corner = Instance.new("UICorner")
                     corner.Parent = Box
@@ -338,7 +350,8 @@ function EclipseX:CreateWindow(options)
                 AddLabel = function(text)
                     local Label = Instance.new("TextLabel")
                     Label.Parent = TabContent
-                    Label.Size = UDim2.new(1, -20, 0, 30)
+                    Label.Size = UDim2.new(1, 0, 0, 30)
+                    Label.Position = UDim2.new(0, 0, 0, 0)
                     Label.Text = text
                     Label.TextColor3 = Color3.fromRGB(255, 255, 255)
                     Label.Font = Enum.Font.Gotham
@@ -346,6 +359,7 @@ function EclipseX:CreateWindow(options)
                     Label.BackgroundTransparency = 1
                     Label.TextXAlignment = Enum.TextXAlignment.Left
                     Label.TextWrapped = true
+                    Label.BorderSizePixel = 0
                 end,
 
                 AddNotification = function(message, duration)
